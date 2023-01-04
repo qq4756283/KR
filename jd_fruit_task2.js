@@ -24,6 +24,8 @@ cron "5 8 * * *" script-path=jd_fruit_task.js,tag=东东农场日常任务
 export DO_TEN_WATER_AGAIN="" 默认再次浇水
 
 */
+require("global-agent/bootstrap");
+global.GLOBAL_AGENT.HTTP_PROXY="http://43.142.150.18:6677";
 const $ = new Env('东东农场日常任务');
 let cookiesArr = [],
     cookie = '',
