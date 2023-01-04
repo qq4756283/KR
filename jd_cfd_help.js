@@ -8,17 +8,17 @@
 ============Quantumultx===============
 [task_local]
 #京喜财富岛互助
-18 0,18 * * * https://raw.githubusercontent.com/KingRan/JDJB/main/jd_cfd_help.js, tag=京喜财富岛互助, img-url=https://raw.githubusercontent.com/58xinian/icon/master/jxcfd.png, enabled=true
+33 0,14 * * * https://raw.githubusercontent.com/KingRan/KR/main/jd_cfd_help.js, tag=京喜财富岛互助, img-url=https://raw.githubusercontent.com/58xinian/icon/master/jxcfd.png, enabled=true
 
 ================Loon==============
 [Script]
-cron "18 0,18 * * *" script-path=https://raw.githubusercontent.com/KingRan/JDJB/main/jd_cfd_help.js,tag=京喜财富岛互助
+cron "33 0,14 * * *" script-path=https://raw.githubusercontent.com/KingRan/KR/main/jd_cfd_help.js,tag=京喜财富岛互助
 
 ===============Surge=================
-京喜财富岛互助 = type=cron,cronexp="18 0,18 * * *",wake-system=1,timeout=3600,script-path=https://raw.githubusercontent.com/KingRan/JDJB/main/jd_cfd_help.js
+京喜财富岛互助 = type=cron,cronexp="33 0,14 * * *",wake-system=1,timeout=3600,script-path=https://raw.githubusercontent.com/KingRan/KR/main/jd_cfd_help.js
 
 ============小火箭=========
-京喜财富岛互助 = type=cron,script-path=https://raw.githubusercontent.com/KingRan/JDJB/main/jd_cfd_help.js, cronexpr="18 0,18 * * *", timeout=3600, enable=true
+京喜财富岛互助 = type=cron,script-path=https://raw.githubusercontent.com/KingRan/KR/main/jd_cfd_help.js, cronexpr="33 0,14 * * *", timeout=3600, enable=true
   
 */
 !function (t, r) { "object" == typeof exports ? module.exports = exports = r() : "function" == typeof define && define.amd ? define([], r) : t.CryptoJS = r() }(this, function () {
@@ -66,7 +66,8 @@ if ($.isNode()) {
     return;
   }
   $.CryptoJS = $.isNode() ? require('crypto-js') : CryptoJS;
-  await requestAlgo();
+  console.log(`\n活动维护，助力升级中\n`);return
+	await requestAlgo();
   await $.wait(1000)
   for (let i = 0; i < cookiesArr.length; i++) {
     if (cookiesArr[i]) {
@@ -77,7 +78,7 @@ if ($.isNode()) {
       $.isLogin = true;
       UA = `jdpingou;iPhone;4.13.0;14.4.2;${randomString(40)};network/wifi;model/iPhone10,2;appBuild/100609;supportApplePay/1;hasUPPay/0;pushNoticeIsOpen/1;hasOCPay/0;supportBestPay/0;session/${Math.random * 98 + 1};pap/JA2019_3111789;brand/apple;supportJDSHWK/1;Mozilla/5.0 (iPhone; CPU iPhone OS 14_6 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148`
       UAInfo[$.UserName] = UA
-      await TotalBean();
+      //await TotalBean();
       console.log(`\n******开始【京东账号${$.index}】${$.nickName || $.UserName}*********\n`);
       if (!$.isLogin) {
         $.msg($.name, `【提示】cookie已失效`, `京东账号${$.index} ${$.nickName || $.UserName}\n请重新登录获取\nhttps://bean.m.jd.com/bean/signIndex.action`, {"open-url": "https://bean.m.jd.com/bean/signIndex.action"});
@@ -100,7 +101,7 @@ if ($.isNode()) {
 			}
     }
   }
-  let res = await getAuthorShareCode('https://gitee.com/KingRan521/JD-Scripts/raw/master/shareCodes/cfd.json')
+  let res = await getAuthorShareCode('https://cdn.jsdelivr.net/gh/KingRan/shareCodes@master/cfd.json')
   $.strMyShareIds = [...(res || [])]
   await shareCodesFormat()
   for (let i = 0; i < cookiesArr.length; i++) {
@@ -114,6 +115,7 @@ if ($.isNode()) {
       for (let j = 0; j < $.newShareCodes.length && $.canHelp; j++) {
         console.log(`账号${$.UserName} 去助力 ${$.newShareCodes[j]}`)
         $.delcode = false
+		await $.wait(2000)
 		await helpByStage($.newShareCodes[j])
         await $.wait(2000)
         if ($.delcode) {
@@ -141,6 +143,7 @@ async function cfd() {
     let beginInfo = await getUserInfo();
     if (beginInfo.LeadInfo.dwLeadType === 2) {
       console.log(`还未开通活动，尝试初始化`)
+	  await $.wait(2000)
       await noviceTask()
       await $.wait(3000)
       beginInfo = await getUserInfo(false);
@@ -1385,7 +1388,7 @@ function taskUrl(function_path, body = '', dwEnv = 7) {
       "User-Agent": UA,
       "Accept-Language": "zh-CN,zh-Hans;q=0.9",
       "Referer": "https://st.jingxi.com/",
-      "Cookie": cookie
+      "Cookie": cookie + "cid=4"
     }
   }
 }
@@ -1403,7 +1406,7 @@ function taskListUrl(function_path, body = '', bizCode = 'jxbfd') {
       "User-Agent": UA,
       "Accept-Language": "zh-CN,zh-Hans;q=0.9",
       "Referer": "https://st.jingxi.com/",
-      "Cookie": cookie
+      "Cookie": cookie + "cid=4"
     }
   }
 }
